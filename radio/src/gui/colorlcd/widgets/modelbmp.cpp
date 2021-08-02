@@ -34,6 +34,7 @@ class ModelBitmapWidget: public Widget
 
     void refresh(BitmapBuffer * dc) override
     {
+      std::string filename = std::string(g_model.header.bitmap);
       if (buffer &&
           ((buffer->width() != width()) || (buffer->height() != height()) ||
            (deps_hash != getHash()))) {
@@ -45,7 +46,7 @@ class ModelBitmapWidget: public Widget
       // big space to draw
       if (rect.h >= 96 && rect.w >= 120) {
 
-        if (buffer) {
+        if (!filename.empty() && buffer) {
           dc->drawBitmap(0, 38, buffer.get());
         }
 
@@ -59,8 +60,10 @@ class ModelBitmapWidget: public Widget
         dc->drawSolidFilledRect(39, 27, rect.w - 48, 2, COLOR_THEME_SECONDARY1);
       }
       // smaller space to draw
-      else if (buffer) {
+      else {
+        if (!filename.empty() && buffer) {
         dc->drawBitmap(0, 0, buffer.get());
+        }
       }
     }
 
