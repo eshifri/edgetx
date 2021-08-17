@@ -118,7 +118,7 @@ SetupWidgetsPageSlot::SetupWidgetsPageSlot(FormGroup * parent, const rect_t & re
       menu->addLine(TR_SELECT_WIDGET, [=]() {
           Menu * menu = new Menu(parent);
           for (auto factory: getRegisteredWidgets()) {
-            menu->addLine(factory->getName(), [=]() {
+            menu->addLine(factory->getFriendlyName(), [=]() {
                 container->createWidget(slotIndex, factory);
             });
           }
